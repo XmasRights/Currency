@@ -15,7 +15,7 @@ struct CurrencyCell: View {
         HStack(spacing: 20) {
             Image(systemName: model.currency.symbol)
                 .font(.largeTitle)
-                .foregroundColor(.blue)
+                .foregroundColor(Color(model.currency.tint))
 
             VStack(alignment: .leading) {
                 Text(model.description)
