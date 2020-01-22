@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Currency {
+struct Currency: Hashable {
     let symbol: String
     let description: String
     let flag: String

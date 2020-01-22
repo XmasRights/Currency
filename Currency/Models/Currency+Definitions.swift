@@ -9,6 +9,24 @@
 import Foundation
 
 extension Currency {
+    static var all: [Currency] {
+        [
+            .usDollar,
+            .euro,
+            .japaneseYen,
+            .poundSterling,
+            .australianDollar,
+            .canadianDollar,
+            .swissFranc,
+            .chineseYuan,
+            .mexicanPeso,
+            .newZealandDollar,
+            .singaporeDollar,
+            .hongKongDollar,
+            .southKoreanWon
+        ]
+    }
+
     static var usDollar: Currency {
         .init(symbol: "dollarsign.circle",
               description: "US Dollar",
@@ -31,7 +49,7 @@ extension Currency {
     }
 
     static var poundSterling: Currency {
-        .init(symbol: "poundsign.circle",
+        .init(symbol: "sterlingsign.circle",
               description: "Pound Sterling",
               flag: "🇬🇧",
               tint: .systemBlue)
@@ -65,13 +83,6 @@ extension Currency {
               tint: .systemRed)
     }
 
-    static var swedishKrona: Currency {
-        .init(symbol: "kronasign.circle",
-              description: "Swedish Krona",
-              flag: "🇸🇪",
-              tint: .systemYellow)
-    }
-
     static var mexicanPeso: Currency {
         .init(symbol: "pesosign.circle",
               description: "Mexican Peso",
@@ -97,13 +108,6 @@ extension Currency {
         .init(symbol: "dollarsign.circle",
               description: "Hong Kong Dollar",
               flag: "🇭🇰",
-              tint: .systemRed)
-    }
-
-    static var norwegianKrone: Currency {
-        .init(symbol: "kronesign.circle",
-              description: "Norwegian Krone",
-              flag: "🇳🇴",
               tint: .systemRed)
     }
 
