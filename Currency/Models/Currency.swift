@@ -6,10 +6,11 @@
 //  Copyright © 2020 Christopher Fonseka. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Currency {
     let symbol: String
     let description: String
     let flag: String
+    let tint: UIColor
 }
