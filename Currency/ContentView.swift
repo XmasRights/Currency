@@ -10,11 +10,20 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var list = Self.createValues()
+    @State private var text = ""
+    @State private var offset = CGFloat(0)
 
     var body: some View {
-        List {
-            ForEach(list, id:\.self) { model in
-                CurrencyCell(model: model)
+        ZStack {
+            List {
+                ForEach(list, id:\.self) { model in
+                    CurrencyCell(model: model)
+                }
+            }
+
+            VStack {
+                Spacer()
+                InputView().zIndex(10)
             }
         }
     }
