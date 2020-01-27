@@ -9,20 +9,19 @@
 import SwiftUI
 
 struct InputView: View {
-    @State private var text = ""
+    @Binding var value: String
     @State private var offset = CGFloat(0)
 
     var body: some View {
         VStack {
-            TextField("Type Something", text: $text)
+            TextField("Type Something", text: $value)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.all, 16)
-                .background(Color(.systemBackground))
+                .background(Color(.secondarySystemBackground))
                 .keyboardType(.decimalPad)
                 .clipped()
         }
         .offset(y: -self.offset)
-        .shadow(color: .gray, radius: 8.0, x: 0, y: -4)
         .animation(.spring())
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
@@ -36,11 +35,5 @@ struct InputView: View {
                 self.offset = 0
             }
         }
-    }
-}
-
-struct InputView_Previews: PreviewProvider {
-    static var previews: some View {
-        InputView()
     }
 }

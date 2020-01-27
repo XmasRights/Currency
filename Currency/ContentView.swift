@@ -9,27 +9,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var list = Self.createValues()
-    @State private var text = ""
-    @State private var offset = CGFloat(0)
+    @State private var currentValue: String = "1.00"
+
+    private var list: [Value] {
+        Currency.all.map { Value(value: .random(in: 1...100), currency: $0) }
+    }
 
     var body: some View {
         ZStack {
-            List {
-                ForEach(list, id:\.self) { model in
-                    CurrencyCell(model: model)
+            VStack {
+                List {
+                    ForEach(list.map { $0.updating(value: Double(currentValue) ?? 0.0) }, id:\.self) { model in
+                        CurrencyCell(model: model)
+                    }
                 }
+                Spacer(minLength: 64)
             }
 
             VStack {
                 Spacer()
-                InputView().zIndex(10)
+                InputView(value: $currentValue)
             }
         }
-    }
-
-    private static func createValues() -> [Value] {
-        Currency.all.map { Value(value: .random(in: 1...100), currency: $0) }
     }
 }
 

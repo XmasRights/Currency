@@ -17,4 +17,8 @@ extension Value {
     var description: String {
         String(format: "%.2f", value)
     }
+
+    func updating(value: Double) -> Value {
+        .init(value: value, currency: currency)
+    }
 }
