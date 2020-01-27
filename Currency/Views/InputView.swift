@@ -15,6 +15,7 @@ struct InputView: View {
     var body: some View {
         ZStack {
             Color(.secondarySystemBackground)
+                .edgesIgnoringSafeArea(.bottom)
                 .frame(height: 64, alignment: Alignment.bottom)
 
             HStack {
@@ -40,7 +41,7 @@ struct InputView: View {
 
         }
         .offset(y: -self.offset)
-        .animation(.spring())
+        .animation(.easeOut)
         .onAppear(perform: self.controlKeyboard)
     }
 }
@@ -50,7 +51,6 @@ private extension InputView {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
             let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
             let height = value.height
-
             self.offset = height
         }
 
