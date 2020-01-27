@@ -18,6 +18,12 @@ struct InputView: View {
                 .frame(height: 64, alignment: Alignment.bottom)
 
             HStack {
+                Button(action: {
+                    print("Tap")
+                }) {
+                    CurrencyIcon(currency: .usDollar)
+                }
+
                 TextField("Type Something", text: $value)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .background(Color(.secondarySystemBackground))
@@ -35,23 +41,28 @@ struct InputView: View {
         }
         .offset(y: -self.offset)
         .animation(.spring())
-        .onAppear {
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                let height = value.height
+        .onAppear(perform: self.controlKeyboard)
+    }
+}
 
-                self.offset = height
-            }
+private extension InputView {
+    func controlKeyboard() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+            let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            let height = value.height
 
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-                self.offset = 0
-            }
+            self.offset = height
+        }
+
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+            self.offset = 0
         }
     }
 }
 
 extension View {
     func dismissKeyboard() {
-        UIApplication.shared.keyWindow?.endEditing(true)
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        keyWindow?.endEditing(true)
     }
 }
