@@ -13,13 +13,25 @@ struct InputView: View {
     @State private var offset = CGFloat(0)
 
     var body: some View {
-        VStack {
-            TextField("Type Something", text: $value)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.all, 16)
-                .background(Color(.secondarySystemBackground))
-                .keyboardType(.decimalPad)
-                .clipped()
+        ZStack {
+            Color(.secondarySystemBackground)
+                .frame(height: 64, alignment: Alignment.bottom)
+
+            HStack {
+                TextField("Type Something", text: $value)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .background(Color(.secondarySystemBackground))
+                    .keyboardType(.decimalPad)
+                    .clipped()
+
+                Button(action: {
+                    self.dismissKeyboard()
+                }) {
+                    Image(systemName: "keyboard.chevron.compact.down")
+                }
+            }
+            .padding([.leading, .trailing], 16)
+
         }
         .offset(y: -self.offset)
         .animation(.spring())
@@ -35,5 +47,11 @@ struct InputView: View {
                 self.offset = 0
             }
         }
+    }
+}
+
+extension View {
+    func dismissKeyboard() {
+        UIApplication.shared.keyWindow?.endEditing(true)
     }
 }
